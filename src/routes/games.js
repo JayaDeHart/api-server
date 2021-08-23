@@ -16,8 +16,8 @@ gameRoutes.delete("/games/:id", deleteGame);
 
 async function getGames(req, res, next) {
   try {
-    let allGames = await Games.findAll();
-    res.status(200).json(allGames);
+    const game = await Games.getAll();
+    res.status(200).json(game);
   } catch (err) {
     next(err);
   }
@@ -26,7 +26,7 @@ async function getGames(req, res, next) {
 async function getGameById(req, res, next) {
   const id = parseInt(req.params.id);
   try {
-    let game = await Games.findOne({ where: { id: id } });
+    let game = await Games.getOne(id)
     res.status(200).json(game);
   } catch (err) {
     next(err);
@@ -46,8 +46,7 @@ async function updateGame(req, res, next) {
   const id = req.params.id;
   const update = req.body;
   try {
-    let game = await Games.findOne({ where: { id: id } });
-    let updatedGame = await game.update(update);
+    let updatedGame = await Games.update(id, update)
     res.status(202).json(updatedGame);
   } catch (err) {
     next(err);
@@ -57,7 +56,7 @@ async function updateGame(req, res, next) {
 async function deleteGame(req, res, next) {
   const id = req.params.id;
   try {
-    await Games.destroy({ where: { id: id } });
+    await Games.destroy(id);
     res.status(204).json(null);
   } catch (err) {
     next(err);

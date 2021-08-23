@@ -16,8 +16,8 @@ bookRoutes.delete("/books/:id", deleteBook);
 
 async function getBooks(req, res, next) {
   try {
-    let allBooks = await Books.findAll();
-    res.status(200).json(allBooks);
+    const book = await Books.getAll();
+    res.status(200).json(book);
   } catch (err) {
     next(err);
   }
@@ -26,7 +26,7 @@ async function getBooks(req, res, next) {
 async function getBookById(req, res, next) {
   const id = parseInt(req.params.id);
   try {
-    let book = await Books.findOne({ where: { id: id } });
+    let book = await Books.getOne(id)
     res.status(200).json(book);
   } catch (err) {
     next(err);
@@ -46,8 +46,7 @@ async function updateBook(req, res, next) {
   const id = req.params.id;
   const update = req.body;
   try {
-    let book = await Books.findOne({ where: { id: id } });
-    let updatedBook = await book.update(update);
+    let updatedBook = await Books.update(id, update)
     res.status(202).json(updatedBook);
   } catch (err) {
     next(err);
@@ -57,7 +56,7 @@ async function updateBook(req, res, next) {
 async function deleteBook(req, res, next) {
   const id = req.params.id;
   try {
-    await Books.destroy({ where: { id: id } });
+    await Books.destroy(id);
     res.status(204).json(null);
   } catch (err) {
     next(err);
