@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "jayadehart",
+    "password": "root",
+    "database": "booksngamesDB",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": "rootroot",
+    "database": "data_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": "rootroot",
+    "database": "data_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
